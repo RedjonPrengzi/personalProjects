@@ -1,6 +1,6 @@
 package ToDo_Application;
+
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 
@@ -17,7 +17,7 @@ public class ToDoApp {
     private JTextArea taskTextArea;
     private List<String> taskList;
 
-    // Initialize the app
+    // Constructs a ToDoApp object and initializes the app
     public ToDoApp() {
         frame = new JFrame("ToDo App");
         panel = new JPanel();
@@ -39,28 +39,12 @@ public class ToDoApp {
         panel.add(new JScrollPane(taskTextArea), BorderLayout.CENTER);
 
         // Set up the button actions
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addTask();
-            }
-        });
-        editButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                editTask();
-            }
-        });
-        removeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                removeTask();
-            }
-        });
+        addButton.addActionListener(e -> addTask());
+        editButton.addActionListener(e -> editTask());
+        removeButton.addActionListener(e -> removeTask());
 
         // Set up the text field action
-    taskInput.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            addTask();
-        }
-    });
+        taskInput.addActionListener(e -> addTask());
 
         // Set up the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,37 +85,38 @@ public class ToDoApp {
         }
     }
 
-    // Get the selected index in the text area
-/**
- * @return
- */
-private int getSelectedIndex() {
-    int start = taskTextArea.getSelectionStart();
-    int end = taskTextArea.getSelectionEnd();
-    if (start == end) {
-        return -1;
-    } else {
-        try {
-            int selectedLine = taskTextArea.getLineOfOffset(start);
-            int lineStartOffset = taskTextArea.getLineStartOffset(selectedLine);
-            int lineEndOffset = taskTextArea.getLineEndOffset(selectedLine);
-            String line = taskTextArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
-            String[] parts = line.split("\\. ");
-            if (parts.length > 0) {
-                try {
-                    return Integer.parseInt(parts[0]) - 1;
-                } catch (NumberFormatException e) {
+    /**
+     * Get the selected index in the text area.
+     *
+     * @return the index of the selected task in the task list, or -1 if no task is
+     *         selected.
+     */
+    private int getSelectedIndex() {
+        int start = taskTextArea.getSelectionStart();
+        int end = taskTextArea.getSelectionEnd();
+        if (start == end) {
+            return -1;
+        } else {
+            try {
+                int selectedLine = taskTextArea.getLineOfOffset(start);
+                int lineStartOffset = taskTextArea.getLineStartOffset(selectedLine);
+                int lineEndOffset = taskTextArea.getLineEndOffset(selectedLine);
+                String line = taskTextArea.getText(lineStartOffset, lineEndOffset - lineStartOffset);
+                String[] parts = line.split("\\. ");
+                if (parts.length > 0) {
+                    try {
+                        return Integer.parseInt(parts[0]) - 1;
+                    } catch (NumberFormatException e) {
+                        return -1;
+                    }
+                } else {
                     return -1;
                 }
-            } else {
+            } catch (BadLocationException e) {
                 return -1;
             }
-        } catch (BadLocationException e) {
-            return -1;
         }
     }
-}
-
 
     // Update the text in the task text area
     private void updateTaskList() {
