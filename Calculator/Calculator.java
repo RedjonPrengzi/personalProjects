@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class Calculator {
   // create a frame
   JFrame frame = new JFrame("Calculator");
-  
+
   // create a text field
   JTextField textField = new JTextField();
 
@@ -22,7 +22,7 @@ public class Calculator {
   JButton button7 = new JButton("7");
   JButton button8 = new JButton("8");
   JButton button9 = new JButton("9");
-  
+
   // create operator buttons
   JButton buttonAdd = new JButton("+");
   JButton buttonSubtract = new JButton("-");
@@ -33,7 +33,7 @@ public class Calculator {
 
   // create a variable to store the result of the operations
   double result;
-  
+
   // create a variable to store the operator
   String operator;
 
@@ -41,24 +41,23 @@ public class Calculator {
     // create a new instance of the Calculator class
     Calculator calculator = new Calculator();
   }
-  
 
   public Calculator() {
     // set the text field to be uneditable
     textField.setEditable(false);
-    
+
     // set the font of the text field
     textField.setFont(new Font("Arial", Font.PLAIN, 20));
-    
+
     // set the size of the text field
     textField.setPreferredSize(new Dimension(200, 40));
-    
+
     // create a panel for the buttons
     JPanel panel = new JPanel();
-    
+
     // set the layout of the panel to GridLayout
     panel.setLayout(new GridLayout(4, 4));
-    
+
     // add the buttons to the panel
     panel.add(button1);
     panel.add(button2);
@@ -79,148 +78,85 @@ public class Calculator {
 
     // create a panel for the text field
     JPanel panelTextField = new JPanel();
-    
+
     // add the text field to the panel
     panelTextField.add(textField);
-    
+
     // add the panels to the frame
     frame.add(panel, BorderLayout.CENTER);
     frame.add(panelTextField, BorderLayout.NORTH);
-    
-   // add action listeners to the buttons
-button0.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "0");
-    }
-  });
-  
-  button1.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "1");
-    }
-  });
-  
-  button2.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "2");
-    }
-  });
-  
-  button3.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "3");
-    }
-  });
-  
-  button4.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "4");
-    }
-  });
-  
-  button5.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "5");
-    }
-  });
-  
-  button6.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "6");
-    }
-  });
-  
-  button7.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "7");
-    }
-  });
-  
-  button8.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "8");
-    }
-  });
-  
-  button9.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      textField.setText(textField.getText() + "9");
-    }
-  });
-  
-  buttonAdd.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
+
+    // add action listeners to the buttons
+    button0.addActionListener(e -> textField.setText(textField.getText() + "0"));
+    button1.addActionListener(e -> textField.setText(textField.getText() + "1"));
+    button2.addActionListener(e -> textField.setText(textField.getText() + "2"));
+    button3.addActionListener(e -> textField.setText(textField.getText() + "3"));
+    button4.addActionListener(e -> textField.setText(textField.getText() + "4"));
+    button5.addActionListener(e -> textField.setText(textField.getText() + "5"));
+    button6.addActionListener(e -> textField.setText(textField.getText() + "6"));
+    button7.addActionListener(e -> textField.setText(textField.getText() + "7"));
+    button8.addActionListener(e -> textField.setText(textField.getText() + "8"));
+    button9.addActionListener(e -> textField.setText(textField.getText() + "9"));
+    buttonAdd.addActionListener(e -> {
       result = Double.parseDouble(textField.getText());
       operator = "+";
       textField.setText("");
-    }
-  });
-  
-  buttonSubtract.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
+    });
+    buttonSubtract.addActionListener(e -> {
       result = Double.parseDouble(textField.getText());
       operator = "-";
       textField.setText("");
-    }
-  });
-  
-  buttonMultiply.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
+    });
+    buttonMultiply.addActionListener(e -> {
       result = Double.parseDouble(textField.getText());
       operator = "*";
       textField.setText("");
-    }
-  });
-  
-  buttonDivide.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
+    });
+    buttonDivide.addActionListener(e -> {
       result = Double.parseDouble(textField.getText());
       operator = "/";
       textField.setText("");
-    }
-  });
-  
-  buttonEquals.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      double secondOperand = Double.parseDouble(textField.getText());
-      if (operator == "+") {
-        result = result + secondOperand;
-      } else if (operator == "-") {
-        result = result - secondOperand;
-      } else if (operator == "*") {
-        result = result * secondOperand;
-      } else if (operator == "/") {
-        result = result / secondOperand;
-      }
-      textField.setText(String.valueOf(result));
-    }
-  });
+    });
 
-buttonBackspace.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-      // get the current text in the text field
-      String text = textField.getText();
-      
-      // if the text field is not empty
-      if (!text.isEmpty()) {
-        // remove the last character from the text
-        text = text.substring(0, text.length() - 1);
-        
-        // update the text in the text field
-        textField.setText(text);
+    buttonEquals.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        double secondOperand = Double.parseDouble(textField.getText());
+        if (operator == "+") {
+          result = result + secondOperand;
+        } else if (operator == "-") {
+          result = result - secondOperand;
+        } else if (operator == "*") {
+          result = result * secondOperand;
+        } else if (operator == "/") {
+          result = result / secondOperand;
+        }
+        textField.setText(String.valueOf(result));
       }
-    }
-  });
-  
-  
-  // set the size of the frame
-  frame.setSize(300, 350);
-  
-  // set the default close operation of the frame
-  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  
-  // make the frame visible
-  frame.setVisible(true);
-}}
-  
-  
+    });
+
+    buttonBackspace.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        // get the current text in the text field
+        String text = textField.getText();
+
+        // if the text field is not empty
+        if (!text.isEmpty()) {
+          // remove the last character from the text
+          text = text.substring(0, text.length() - 1);
+
+          // update the text in the text field
+          textField.setText(text);
+        }
+      }
+    });
+
+    // set the size of the frame
+    frame.setSize(250, 250);
+
+    // set the close operation of the frame
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    // make the frame visible
+    frame.setVisible(true);
+  }
+}
